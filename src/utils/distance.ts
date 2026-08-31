@@ -1,0 +1,19 @@
+import type { LatLng } from '../types'
+
+export function haversineMeters(a: LatLng, b: LatLng): number {
+  const R = 6_371_000
+  const toRad = (deg: number) => deg * Math.PI / 180
+  const dLat = toRad(b.lat - a.lat)
+  const dLng = toRad(b.lng - a.lng)
+  const lat1 = toRad(a.lat)
+  const lat2 = toRad(b.lat)
+
+  const h = Math.sin(dLat / 2) ** 2
+    + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2
+  return 2 * R * Math.asin(Math.sqrt(h))
+}
+
+export function formatDistance(meters: number): string {
+  if (meters < 1000) return `約${Math.max(50, Math.round(meters / 50) * 50)}m`
+  return `約${(meters / 1000).toFixed(1)}km`
+}

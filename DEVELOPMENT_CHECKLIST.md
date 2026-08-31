@@ -1,0 +1,24 @@
+# Development checklist — Ver.6.2
+
+- [ ] `.env` contains Google Maps API key / Map ID / Supabase URL / Publishable Key
+- [ ] Google API key HTTP referrer includes the active localhost port
+- [ ] Maps JavaScript API and Places API (New) enabled
+- [ ] `supabase/schema.sql` executed once
+- [ ] Supabase Anonymous Sign-Ins enabled
+- [ ] `npm install`
+- [ ] `npm run typecheck`
+- [ ] `npm run build`
+- [ ] Current location search works
+- [ ] Hotel search works
+- [ ] Address search works
+- [ ] Default radius is 500m; 1km / 1.5km / 3km also work
+- [ ] Dense-area search returns more candidates than the former single-query 20-result ceiling where applicable
+- [ ] 一蘭 道頓堀店 appears when it is actually inside the selected radius and Google returns it through at least one coverage-search path
+- [ ] `営業中のみ` correctly removes stores that are not confirmed open
+- [ ] Google Maps detail links work
+- [ ] Chain names are recognized (e.g. 一蘭 / 神座 / 丸源)
+- [ ] Non-chain Google initial correction is capped at ±2 (83.0–87.0 when unrated)
+- [ ] Chain Google initial correction is capped at ±2 and Chain Prior remains dominant
+- [ ] Scores display to one decimal place
+- [ ] Feedback submission updates score after send
+- [ ] Same anonymous user cannot submit the same store more than once per UTC day
