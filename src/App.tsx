@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { AddressCandidate, FeedbackStatsRecord, HotelCandidate, Mood, RamenType, RankedRestaurant, SearchOrigin } from './types'
+import { areaPagesBySlug, type AreaPageConfig } from './data/areaDirectory'
 import { getCurrentLocation } from './services/geolocation'
 import { searchAddresses, searchHotels, searchRamen } from './services/googleMaps'
 import { fetchFeedbackStats, hasSupabaseConfig } from './services/supabase'
@@ -20,6 +21,27 @@ const moods: { value: Mood; label: string }[] = [
 type OriginMode = 'current' | 'hotel' | 'address'
 type SortMode = 'jigo' | 'distance' | 'googleRating'
 
+const areaAddressRequests = new Map<string, Promise<AddressCandidate[]>>()
+
+function normalizeLocationText(value: string) {
+  return value.replace(/\s+/g, '').toLocaleLowerCase('ja')
+}
+
+function findSafeAreaCandidate(area: AreaPageConfig, candidates: AddressCandidate[]) {
+  const areaName = normalizeLocationText(area.name)
+  const prefectureName = normalizeLocationText(area.prefectureShortName)
+  const matches = candidates.filter((candidate) => {
+    const text = normalizeLocationText(`${candidate.label} ${candidate.formattedAddress}`)
+    return text.includes(areaName) && text.includes(prefectureName)
+  })
+  if (matches.length === 1) return matches[0]
+  if (candidates.length === 1) {
+    const text = normalizeLocationText(`${candidates[0].label} ${candidates[0].formattedAddress}`)
+    if (text.includes(prefectureName)) return candidates[0]
+  }
+  return undefined
+}
+
 export default function App() {
   const [originMode, setOriginMode] = useState<OriginMode>('current')
   const [origin, setOrigin] = useState<SearchOrigin | null>(null)
@@ -38,6 +60,58 @@ export default function App() {
   const [view, setView] = useState<'list' | 'map'>('list')
   const [sortMode, setSortMode] = useState<SortMode>('jigo')
   const [feedbackTarget, setFeedbackTarget] = useState<RankedRestaurant | null>(null)
+  const [selectedAreaName, setSelectedAreaName] = useState<string | null>(null)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const areaSlug = params.get('area')
+    if (!areaSlug) return
+
+    const area = areaPagesBySlug[areaSlug]
+    if (!area) {
+      setError('指定されたエリアを設定できませんでした。通常の検索方法を選択してください。')
+      window.history.replaceState(window.history.state, '', '/')
+      return
+    }
+
+    let active = true
+    setOriginMode('address')
+    setAddressQuery(area.searchQuery)
+    setOriginLoading(true)
+    setError('')
+
+    let request = areaAddressRequests.get(area.slug)
+    if (!request) {
+      request = searchAddresses(area.searchQuery)
+      areaAddressRequests.set(area.slug, request)
+    }
+
+    void request
+      .then((results) => {
+        if (!active) return
+        const candidate = findSafeAreaCandidate(area, results)
+        if (!candidate) {
+          setAddressCandidates(results)
+          setError(results.length > 0
+            ? `${area.name}の検索起点を自動設定できませんでした。表示された住所候補から選択してください。`
+            : `${area.name}の検索起点を設定できませんでした。通常の検索方法を選択してください。`)
+          return
+        }
+        setOrigin({ label: area.name, location: candidate.location, kind: 'address', placeId: candidate.placeId })
+        setSelectedAreaName(area.name)
+        setAddressCandidates([])
+        window.history.replaceState(window.history.state, '', '/')
+      })
+      .catch((reason: unknown) => {
+        if (!active) return
+        setError(reason instanceof Error ? reason.message : `${area.name}の検索起点を設定できませんでした。`)
+      })
+      .finally(() => {
+        if (active) setOriginLoading(false)
+      })
+
+    return () => { active = false }
+  }, [])
 
   const sortedRestaurants = useMemo(() => {
     const copy = [...restaurants]
@@ -71,6 +145,7 @@ export default function App() {
     setOrigin(null)
     setHotelCandidates([])
     setAddressCandidates([])
+    setSelectedAreaName(null)
     setError('')
   }
 
@@ -96,6 +171,7 @@ export default function App() {
   async function findAddresses() {
     if (!addressQuery.trim()) return
     try {
+      setOrigin(null); setSelectedAreaName(null)
       setOriginLoading(true); setError('')
       const results = await searchAddresses(addressQuery)
       setAddressCandidates(results)
@@ -111,6 +187,7 @@ export default function App() {
 
   function chooseAddress(address: AddressCandidate) {
     setOrigin({ label: address.formattedAddress, location: address.location, kind: 'address', placeId: address.placeId })
+    setSelectedAreaName(null)
     setAddressCandidates([])
   }
 
@@ -193,7 +270,7 @@ export default function App() {
             <div className="hotel-search">
               <div className="inline-input"><input value={addressQuery} onChange={(e) => setAddressQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && findAddresses()} placeholder="例：大阪市中央区難波1丁目" /><button className="button button--primary" onClick={findAddresses} disabled={originLoading}>{originLoading ? '検索中' : '住所検索'}</button></div>
               {addressCandidates.length > 0 && <div className="hotel-results">{addressCandidates.map((address, index) => <button key={address.placeId ?? `${address.formattedAddress}-${index}`} onClick={() => chooseAddress(address)}><strong>{address.label}</strong><span>この住所周辺を検索 →</span></button>)}</div>}
-              {origin?.kind === 'address' && <div className="selected-origin">✓ {origin.label}</div>}
+              {origin?.kind === 'address' && <div className="selected-origin">✓ {selectedAreaName ? `${selectedAreaName}を検索起点に設定しました` : origin.label}</div>}
             </div>
           )}
 
@@ -235,12 +312,8 @@ export default function App() {
       <section className="area-discovery" aria-labelledby="area-discovery-title">
         <span className="eyebrow">AREA</span>
         <h2 id="area-discovery-title">エリアから探す</h2>
-        <p>大阪の夜によく利用されるエリアから、今営業中のラーメン店探しを始められます。</p>
-        <nav className="area-link-grid" aria-label="エリアから探す">
-          <a href="/area/namba"><span>難波</span><small>深夜ラーメンを探す →</small></a>
-          <a href="/area/umeda"><span>梅田</span><small>深夜ラーメンを探す →</small></a>
-          <a href="/area/shinsaibashi"><span>心斎橋</span><small>深夜ラーメンを探す →</small></a>
-        </nav>
+        <p>全国の主要エリアから、事後ラーを探せます。</p>
+        <a className="area-discovery-cta" href="/area">エリアを選ぶ →</a>
       </section>
 
       <footer>

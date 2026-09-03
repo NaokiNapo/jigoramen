@@ -1,0 +1,129 @@
+[
+  {
+    "region": "東京",
+    "prefectures": [
+      {
+        "name": "東京都", "shortName": "東京", "slug": "tokyo",
+        "areas": [
+          { "name": "渋谷", "slug": "shibuya", "searchQuery": "東京都渋谷区" }, { "name": "新宿", "slug": "shinjuku", "searchQuery": "東京都新宿区" },
+          { "name": "池袋", "slug": "ikebukuro" }, { "name": "立川", "slug": "tachikawa" },
+          { "name": "上野", "slug": "ueno" }, { "name": "品川", "slug": "shinagawa" },
+          { "name": "錦糸町", "slug": "kinshicho" }, { "name": "八王子", "slug": "hachioji" },
+          { "name": "町田", "slug": "machida" }, { "name": "六本木", "slug": "roppongi" },
+          { "name": "銀座", "slug": "ginza" }, { "name": "青山", "slug": "aoyama" },
+          { "name": "世田谷", "slug": "setagaya" }, { "name": "赤坂", "slug": "akasaka" },
+          { "name": "吉祥寺", "slug": "kichijoji" }, { "name": "恵比寿", "slug": "ebisu" },
+          { "name": "赤羽", "slug": "akabane" }, { "name": "西麻布", "slug": "nishiazabu" },
+          { "name": "中野", "slug": "nakano" }
+        ]
+      }
+    ]
+  },
+  {
+    "region": "関東",
+    "prefectures": [
+      { "name": "神奈川県", "shortName": "神奈川", "slug": "kanagawa", "areas": [
+        { "name": "横浜", "slug": "yokohama" }, { "name": "川崎", "slug": "kawasaki" }, { "name": "湘南", "slug": "shonan" }
+      ] },
+      { "name": "千葉県", "shortName": "千葉", "slug": "chiba", "areas": [
+        { "name": "千葉", "slug": "chiba-city" }, { "name": "船橋", "slug": "funabashi" },
+        { "name": "柏", "slug": "kashiwa" }, { "name": "松戸", "slug": "matsudo" }, { "name": "舞浜", "slug": "maihama" }
+      ] },
+      { "name": "埼玉県", "shortName": "埼玉", "slug": "saitama", "areas": [
+        { "name": "さいたま", "slug": "saitama-city" }, { "name": "西川口", "slug": "nishikawaguchi" }, { "name": "大宮", "slug": "omiya" }
+      ] },
+      { "name": "栃木県", "shortName": "栃木", "slug": "tochigi", "areas": [{ "name": "宇都宮", "slug": "utsunomiya" }] },
+      { "name": "群馬県", "shortName": "群馬", "slug": "gunma", "areas": [{ "name": "群馬", "slug": "gunma-area" }] },
+      { "name": "茨城県", "shortName": "茨城", "slug": "ibaraki", "areas": [{ "name": "茨城", "slug": "ibaraki-area" }, { "name": "水戸", "slug": "mito" }] },
+      { "name": "山梨県", "shortName": "山梨", "slug": "yamanashi", "areas": [{ "name": "甲府", "slug": "kofu" }] }
+    ]
+  },
+  {
+    "region": "北海道・東北",
+    "prefectures": [
+      { "name": "北海道", "shortName": "北海道", "slug": "hokkaido", "areas": [{ "name": "札幌", "slug": "sapporo" }] },
+      { "name": "宮城県", "shortName": "宮城", "slug": "miyagi", "areas": [{ "name": "仙台", "slug": "sendai" }] },
+      { "name": "福島県", "shortName": "福島", "slug": "fukushima", "areas": [{ "name": "郡山", "slug": "koriyama" }] },
+      { "name": "山形県", "shortName": "山形", "slug": "yamagata", "areas": [{ "name": "山形", "slug": "yamagata-city" }] },
+      { "name": "岩手県", "shortName": "岩手", "slug": "iwate", "areas": [{ "name": "岩手", "slug": "iwate-area" }] },
+      { "name": "青森県", "shortName": "青森", "slug": "aomori", "areas": [{ "name": "青森", "slug": "aomori-city" }] }
+    ]
+  },
+  {
+    "region": "北陸・甲信越",
+    "prefectures": [
+      { "name": "新潟県", "shortName": "新潟", "slug": "niigata", "areas": [{ "name": "新潟", "slug": "niigata-city" }] },
+      { "name": "長野県", "shortName": "長野", "slug": "nagano", "areas": [{ "name": "長野", "slug": "nagano-city" }] },
+      { "name": "石川県", "shortName": "石川", "slug": "ishikawa", "areas": [{ "name": "金沢", "slug": "kanazawa" }] }
+    ]
+  },
+  {
+    "region": "東海",
+    "prefectures": [
+      { "name": "静岡県", "shortName": "静岡", "slug": "shizuoka", "areas": [
+        { "name": "静岡", "slug": "shizuoka-city" }, { "name": "浜松", "slug": "hamamatsu" }, { "name": "沼津", "slug": "numazu" }
+      ] },
+      { "name": "愛知県", "shortName": "愛知", "slug": "aichi", "areas": [
+        { "name": "名古屋", "slug": "nagoya" }, { "name": "岡崎", "slug": "okazaki" }, { "name": "藤が丘", "slug": "fujigaoka" }
+      ] },
+      { "name": "三重県", "shortName": "三重", "slug": "mie", "areas": [{ "name": "三重", "slug": "mie-area" }] },
+      { "name": "岐阜県", "shortName": "岐阜", "slug": "gifu", "areas": [{ "name": "岐阜", "slug": "gifu-city" }] }
+    ]
+  },
+  {
+    "region": "関西",
+    "prefectures": [
+      {
+        "name": "大阪府", "shortName": "大阪", "slug": "osaka",
+        "areas": [
+          {
+            "name": "難波", "slug": "namba", "searchQuery": "大阪府大阪市中央区難波",
+            "title": "難波の深夜ラーメン｜今営業中の店を探す | 事後ラー",
+            "description": "難波・道頓堀・千日前周辺で今営業中のラーメン店を検索。距離やラーメンの種類、今の気分から、飲み会や夜遊び後にちょうどいい一杯を探せます。",
+            "lead": "飲み会や夜遊びのあとに、難波周辺で今営業中のラーメン店を探せます。現在地・距離・ラーメンの種類・気分などから、その時に合う一杯を検索できます。",
+            "feature": "難波は、道頓堀・千日前・宗右衛門町周辺などに飲食店が集まる、大阪を代表する繁華街のひとつです。夜遅くまで営業する店も見つけやすく、飲み会や夜遊びのあと、終電前後にラーメンを探したいときにも、時間帯や場所によってさまざまな選択肢があります。"
+          },
+          {
+            "name": "梅田", "slug": "umeda", "searchQuery": "大阪府大阪市北区梅田",
+            "title": "梅田の深夜ラーメン｜今営業中の店を探す | 事後ラー",
+            "description": "梅田・大阪駅・東梅田周辺で今営業中のラーメン店を検索。距離やラーメンの種類、今の気分から、夜遅くでも行きやすい一杯を探せます。",
+            "lead": "飲み会や外出のあとに、梅田周辺で今営業中のラーメン店を探せます。現在地・距離・ラーメンの種類・気分などから、その時に合う一杯を検索できます。",
+            "feature": "梅田は、大阪駅・東梅田・お初天神・堂山町周辺などに、交通拠点と繁華街が広がるエリアです。駅近くから路地沿いまで飲食店の選択肢があり、夜遅くまで営業する店舗が見つかることもあります。帰宅前や二軒目のあとなど、状況に合わせて探しやすい地域です。"
+          },
+          { "name": "京橋", "slug": "kyobashi" },
+          { "name": "大阪上本町", "slug": "uehonmachi" },
+          {
+            "name": "心斎橋", "slug": "shinsaibashi", "searchQuery": "大阪府大阪市中央区心斎橋筋",
+            "title": "心斎橋の深夜ラーメン｜今営業中の店を探す | 事後ラー",
+            "description": "心斎橋・東心斎橋・長堀橋周辺で今営業中のラーメン店を検索。距離やラーメンの種類、今の気分から、その時に合うラーメンを探せます。",
+            "lead": "飲み会や夜の外出後に、心斎橋周辺で今営業中のラーメン店を探せます。現在地・距離・ラーメンの種類・気分などから、その時に合う一杯を検索できます。",
+            "feature": "心斎橋は、東心斎橋・長堀橋周辺まで飲食店や商業施設が広がり、難波にも歩いて移動しやすいエリアです。夜間に利用できる店が見つかることもあり、買い物や食事、飲み会のあとにラーメンを探す際は、現在地や営業時間を見ながら候補を比べられます。"
+          }
+        ]
+      },
+      { "name": "兵庫県", "shortName": "兵庫", "slug": "hyogo", "areas": [{ "name": "神戸", "slug": "kobe" }] },
+      { "name": "京都府", "shortName": "京都", "slug": "kyoto", "areas": [{ "name": "京都", "slug": "kyoto-city" }] }
+    ]
+  },
+  {
+    "region": "中国",
+    "prefectures": [
+      { "name": "広島県", "shortName": "広島", "slug": "hiroshima", "areas": [{ "name": "広島", "slug": "hiroshima-city" }] },
+      { "name": "岡山県", "shortName": "岡山", "slug": "okayama", "areas": [{ "name": "岡山", "slug": "okayama-city" }] }
+    ]
+  },
+  {
+    "region": "九州・沖縄",
+    "prefectures": [
+      { "name": "福岡県", "shortName": "福岡", "slug": "fukuoka", "areas": [
+        { "name": "博多", "slug": "hakata" }, { "name": "久留米", "slug": "kurume" },
+        { "name": "北九州", "slug": "kitakyushu" }, { "name": "中洲", "slug": "nakasu" }
+      ] },
+      { "name": "沖縄県", "shortName": "沖縄", "slug": "okinawa", "areas": [{ "name": "沖縄", "slug": "okinawa-area" }] },
+      { "name": "鹿児島県", "shortName": "鹿児島", "slug": "kagoshima", "areas": [{ "name": "鹿児島", "slug": "kagoshima-city" }] },
+      { "name": "大分県", "shortName": "大分", "slug": "oita", "areas": [{ "name": "大分", "slug": "oita-city" }] },
+      { "name": "熊本県", "shortName": "熊本", "slug": "kumamoto", "areas": [{ "name": "熊本", "slug": "kumamoto-city" }] },
+      { "name": "長崎県", "shortName": "長崎", "slug": "nagasaki", "areas": [{ "name": "長崎", "slug": "nagasaki-city" }] }
+    ]
+  }
+]

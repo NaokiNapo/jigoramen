@@ -1,21 +1,23 @@
-import { areaPages, type AreaPageConfig } from './data/areaPages'
+import { areaPages, type AreaPageConfig } from './data/areaDirectory'
 
 type AreaPageProps = {
   area: AreaPageConfig
 }
 
 export default function AreaPage({ area }: AreaPageProps) {
-  const otherAreas = areaPages.filter((candidate) => candidate.slug !== area.slug)
+  const otherAreas = areaPages.filter(
+    (candidate) => candidate.prefectureSlug === area.prefectureSlug && candidate.slug !== area.slug,
+  )
 
   return (
     <div className="area-shell">
       <header className="area-hero">
-        <a className="area-back-link" href="/">← 事後ラーに戻る</a>
+        <a className="area-back-link" href={`/area/${area.prefectureSlug}`}>← {area.prefectureName}のエリアに戻る</a>
         <span className="eyebrow">AREA GUIDE</span>
         <h1>{area.name}で<em>今営業中</em>のラーメン店を探す</h1>
         <p>{area.lead}</p>
-        <a className="button button--primary area-cta" href="/">
-          {area.name}でラーメンを探す
+        <a className="button button--primary area-cta" href={`/?area=${encodeURIComponent(area.slug)}`}>
+          {area.name}でおすすめを検索
         </a>
       </header>
 
@@ -39,7 +41,7 @@ export default function AreaPage({ area }: AreaPageProps) {
             <span>02</span>
             <div>
               <h2>ほかのエリアから探す</h2>
-              <p>大阪の夜に合わせてエリアを選べます。</p>
+              <p>{area.prefectureName}の対応エリアから選べます。</p>
             </div>
           </div>
           <nav className="area-link-grid" aria-label="ほかのエリア">
@@ -54,6 +56,7 @@ export default function AreaPage({ area }: AreaPageProps) {
       </main>
 
       <footer className="area-footer">
+        <a href={`/area/${area.prefectureSlug}`}>{area.prefectureName}のエリア一覧へ</a>
         <a href="/">事後ラーの検索画面へ</a>
       </footer>
     </div>
