@@ -1,6 +1,6 @@
 [
   {
-    "region": "東京",
+    "region": "関東",
     "prefectures": [
       {
         "name": "東京都", "shortName": "東京", "slug": "tokyo",
@@ -16,12 +16,7 @@
           { "name": "赤羽", "slug": "akabane" }, { "name": "西麻布", "slug": "nishiazabu" },
           { "name": "中野", "slug": "nakano" }
         ]
-      }
-    ]
-  },
-  {
-    "region": "関東",
-    "prefectures": [
+      },
       { "name": "神奈川県", "shortName": "神奈川", "slug": "kanagawa", "areas": [
         { "name": "横浜", "slug": "yokohama" }, { "name": "川崎", "slug": "kawasaki" }, { "name": "湘南", "slug": "shonan" }
       ] },
