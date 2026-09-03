@@ -230,6 +230,17 @@ export default function App() {
         )}
       </main>
 
+      <section className="area-discovery" aria-labelledby="area-discovery-title">
+        <span className="eyebrow">AREA</span>
+        <h2 id="area-discovery-title">エリアから探す</h2>
+        <p>大阪の夜によく利用されるエリアから、今営業中のラーメン店探しを始められます。</p>
+        <nav className="area-link-grid" aria-label="エリアから探す">
+          <a href="/area/namba"><span>難波</span><small>深夜ラーメンを探す →</small></a>
+          <a href="/area/umeda"><span>梅田</span><small>深夜ラーメンを探す →</small></a>
+          <a href="/area/shinsaibashi"><span>心斎橋</span><small>深夜ラーメンを探す →</small></a>
+        </nav>
+      </section>
+
       <footer>
         <span>ユーザーフィードバックが増えるほど、事後ラー度の精度が高まります。データが少ない店舗はGoogle Mapsの評価などを参考に暫定算出しています。</span>
         <div className="footer-meta">
