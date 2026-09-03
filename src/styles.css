@@ -343,11 +343,31 @@ footer span:first-child { max-width: 610px; }
 .area-link-grid span { font-size: 16px; font-weight: 800; }
 .area-link-grid small { color: var(--muted); font-size: 11px; line-height: 1.5; }
 .area-other .area-link-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.area-footer { justify-content: flex-end; }
+.area-footer { justify-content: flex-end; gap: 8px 18px; }
 .area-footer a { color: #ff9aad; text-underline-offset: 3px; }
 .area-discovery { margin-top: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 22px; background: rgba(26,24,32,.72); }
 .area-discovery h2 { margin: 8px 0 7px; font-size: 20px; }
 .area-discovery > p { margin: 0 0 17px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.area-discovery-cta { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 17px; border: 1px solid rgba(255,108,134,.45); border-radius: 12px; color: white; background: linear-gradient(135deg, rgba(255,75,124,.18), rgba(255,160,111,.1)); font-size: 13px; font-weight: 800; text-decoration: none; }
+.area-discovery-cta:hover, .area-discovery-cta:focus-visible { border-color: var(--accent); background: linear-gradient(135deg, rgba(255,75,124,.28), rgba(255,160,111,.16)); }
+.directory-hero { padding-bottom: 28px; }
+.directory-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 680px; margin: 24px 0 0; padding: 0; list-style: none; }
+.directory-flow li { display: grid; gap: 4px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 12px; color: #d8d4dc; background: rgba(255,255,255,.018); font-size: 12px; font-weight: 700; }
+.directory-flow span { color: var(--accent); font-size: 9px; letter-spacing: .12em; }
+.directory-content { gap: 14px; }
+.directory-step, .directory-region { padding: clamp(20px, 4vw, 30px); scroll-margin-top: 16px; }
+.directory-region-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.directory-region-nav button { flex: 0 1 auto; padding: 9px 12px; border: 1px solid var(--line); border-radius: 999px; color: #f6f3f7; background: #121116; font-size: 12px; font-weight: 700; }
+.directory-region-nav button:hover, .directory-region-nav button:focus-visible, .directory-region-nav button.active { border-color: var(--accent); background: rgba(255,75,124,.13); }
+.prefecture-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.prefecture-card-grid a, .prefecture-card-grid button { display: grid; gap: 7px; min-width: 0; padding: 17px; border: 1px solid var(--line); border-radius: 15px; color: white; background: #121116; text-align: left; text-decoration: none; }
+.prefecture-card-grid a:hover, .prefecture-card-grid a:focus-visible, .prefecture-card-grid button:hover, .prefecture-card-grid button:focus-visible, .prefecture-card-grid button.active { border-color: rgba(255,108,134,.6); background: #18151c; }
+.prefecture-card-grid strong { font-size: 17px; }
+.prefecture-card-grid span { color: #c8c4cc; font-size: 11px; line-height: 1.7; overflow-wrap: anywhere; }
+.prefecture-card-grid small { color: var(--accent-2); font-size: 11px; font-weight: 700; }
+.prefecture-areas .area-link-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.directory-areas .area-link-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.prefecture-detail-link { display: inline-block; margin-top: 18px; color: #ff9aad; font-size: 12px; font-weight: 700; text-underline-offset: 3px; }
 
 @media (max-width: 600px) {
   .footer-meta { justify-items: start; text-align: left; }
@@ -367,4 +387,9 @@ footer span:first-child { max-width: 610px; }
   .area-cta { width: 100%; }
   .area-link-grid, .area-other .area-link-grid { grid-template-columns: 1fr; }
   .area-discovery { padding: 20px 17px; }
+  .area-discovery-cta { width: 100%; }
+  .prefecture-card-grid, .prefecture-areas .area-link-grid { grid-template-columns: 1fr; }
+  .directory-region-nav button { flex: 1 1 calc(50% - 8px); text-align: center; }
+  .directory-flow { grid-template-columns: 1fr; }
+  .directory-areas .area-link-grid { grid-template-columns: 1fr; }
 }

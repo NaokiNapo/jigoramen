@@ -19,16 +19,12 @@
       "destination": "/index.html"
     },
     {
-      "source": "/area/namba",
-      "destination": "/area/namba/index.html"
+      "source": "/area",
+      "destination": "/area/index.html"
     },
     {
-      "source": "/area/umeda",
-      "destination": "/area/umeda/index.html"
-    },
-    {
-      "source": "/area/shinsaibashi",
-      "destination": "/area/shinsaibashi/index.html"
+      "source": "/area/:slug",
+      "destination": "/area/:slug/index.html"
     }
   ]
 }
