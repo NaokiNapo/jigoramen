@@ -161,9 +161,11 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="hero">
-        <span className="brand-chip">JIGO RAMEN / V6.5</span>
+        <span className="brand-chip">JIGO RAMEN</span>
+        <span className="brand-sub">事後ラー検索</span>
         <h1>ふたりの余韻に、<br /><em>ちょうどいい一杯。</em></h1>
         <p>いまいる場所から、ふたりで行きやすいラーメン店を探します。</p>
+        <p className="hero-feedback-note">ユーザー評価が増えるほど、事後ラー度の精度が高まります。</p>
       </header>
 
       <main>
@@ -202,10 +204,10 @@ export default function App() {
           </div>
           <label className="check-row"><input type="checkbox" checked={openNow} onChange={(e) => setOpenNow(e.target.checked)} /> 今営業中の店だけ</label>
 
-          <div className="section-heading section-heading--compact"><span>03</span><div><h2>今の気分 <small>任意</small></h2></div></div>
+          <div className="section-heading section-heading--compact"><span>03</span><div><h2>今の気分 <small>任意</small></h2><p className="mood-note">気分に合わせておすすめ順が変わります</p></div></div>
           <div className="mood-chips">{moods.map((item) => <button key={item.value} className={mood === item.value ? 'active' : ''} onClick={() => updateMood(item.value)}>{item.label}</button>)}</div>
 
-          <button className="search-button" onClick={runSearch} disabled={loading}>{loading ? '周辺のラーメン店を網羅検索中…' : 'おすすめを見る'}</button>
+          <button className="search-button" onClick={runSearch} disabled={loading}>{loading ? 'おすすめを検索中…' : 'おすすめを検索'}</button>
           {error && <div className="error-box">{error}</div>}
         </section>
 
