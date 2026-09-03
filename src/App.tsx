@@ -230,7 +230,18 @@ export default function App() {
         )}
       </main>
 
-      <footer><span>ユーザーフィードバックが増えるほど、事後ラー度の精度が高まります。データが少ない店舗はGoogle Mapsの評価などを参考に暫定算出しています。</span><span>店舗情報・Google評価: Google Maps</span></footer>
+      <footer>
+        <span>ユーザーフィードバックが増えるほど、事後ラー度の精度が高まります。データが少ない店舗はGoogle Mapsの評価などを参考に暫定算出しています。</span>
+        <div className="footer-meta">
+          <span>店舗情報・Google評価: Google Maps</span>
+          <nav className="footer-links" aria-label="フッターナビゲーション">
+            <a href="/about">運営者情報</a>
+            <a href="/contact">お問い合わせ</a>
+            <a href="/terms">利用規約</a>
+            <a href="/privacy">プライバシーポリシー</a>
+          </nav>
+        </div>
+      </footer>
       {feedbackTarget && <FeedbackModal restaurant={feedbackTarget} onClose={() => setFeedbackTarget(null)} onSubmitted={refreshScoresAfterFeedback} />}
     </div>
   )
