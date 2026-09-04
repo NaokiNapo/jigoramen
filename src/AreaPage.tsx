@@ -12,7 +12,7 @@ export default function AreaPage({ area }: AreaPageProps) {
   return (
     <div className="area-shell">
       <header className="area-hero">
-        <a className="area-back-link" href={`/area/${area.prefectureSlug}`}>← {area.prefectureName}のエリアに戻る</a>
+        <a className="area-back-link" href="/">← ホームに戻る</a>
         <span className="eyebrow">AREA GUIDE</span>
         <h1>{area.name}で<em>今営業中</em>のラーメン店を探す</h1>
         <p>{area.lead}</p>

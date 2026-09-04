@@ -6,7 +6,7 @@ export default function PrefecturePage({ prefecture }: PrefecturePageProps) {
   return (
     <div className="area-shell prefecture-shell">
       <header className="area-hero">
-        <a className="area-back-link" href="/area">← エリア一覧に戻る</a>
+        <a className="area-back-link" href="/">← ホームに戻る</a>
         <span className="eyebrow">AREA / {prefecture.regionName}</span>
         <h1>{prefecture.shortName}で<em>深夜ラーメン</em>のエリアを探す</h1>
         <p>{prefecture.lead}</p>
