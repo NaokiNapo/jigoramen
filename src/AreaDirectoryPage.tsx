@@ -17,7 +17,7 @@ export default function AreaDirectoryPage() {
   return (
     <div className="area-shell directory-shell">
       <header className="area-hero directory-hero">
-        <a className="area-back-link" href="/">← 事後ラーに戻る</a>
+        <a className="area-back-link" href="/">← ホームに戻る</a>
         <span className="eyebrow">AREA</span>
         <h1>エリアから<em>探す</em></h1>
         <p>全国の主要エリアから、今営業中のラーメン店を探せます。地方、都道府県、エリアの順に選んでください。</p>

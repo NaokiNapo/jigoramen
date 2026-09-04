@@ -238,8 +238,13 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="hero">
-        <span className="brand-chip">JIGO RAMEN</span>
-        <span className="brand-sub">事後ラー検索</span>
+        <div className="brand-lockup">
+          <img src="/favicon-192x192.png" alt="事後ラー" className="brand-logo" width="56" height="56" />
+          <div>
+            <span className="brand-chip">JIGO RAMEN</span>
+            <span className="brand-sub">事後ラー検索</span>
+          </div>
+        </div>
         <h1>ふたりの余韻に、<br /><em>ちょうどいい一杯。</em></h1>
         <p>いまいる場所から、ふたりで行きやすいラーメン店を探します。</p>
         <p className="hero-feedback-note">ユーザー評価が増えるほど、事後ラー度の精度が高まります。</p>
@@ -284,9 +289,13 @@ export default function App() {
           <div className="section-heading section-heading--compact"><span>03</span><div><h2>今の気分 <small>任意</small></h2><p className="mood-note">気分に合わせておすすめ順が変わります</p></div></div>
           <div className="mood-chips">{moods.map((item) => <button key={item.value} className={mood === item.value ? 'active' : ''} onClick={() => updateMood(item.value)}>{item.label}</button>)}</div>
 
-          <button className="search-button" onClick={runSearch} disabled={loading}>{loading ? 'おすすめを検索中…' : 'おすすめを検索'}</button>
+          <button className="search-button" onClick={runSearch} disabled={loading} aria-busy={loading}>
+            {loading ? <span className="search-loading"><span className="search-spinner" aria-hidden="true" />おすすめを検索中…</span> : 'おすすめを検索'}
+          </button>
           {error && <div className="error-box">{error}</div>}
         </section>
+
+        <div className="area-discovery"><a href="/area">エリアから探す →</a></div>
 
         {sortedRestaurants.length > 0 && origin && (
           <section className="results-section">
@@ -308,13 +317,6 @@ export default function App() {
           </section>
         )}
       </main>
-
-      <section className="area-discovery" aria-labelledby="area-discovery-title">
-        <span className="eyebrow">AREA</span>
-        <h2 id="area-discovery-title">エリアから探す</h2>
-        <p>全国の主要エリアから、事後ラーを探せます。</p>
-        <a className="area-discovery-cta" href="/area">エリアを選ぶ →</a>
-      </section>
 
       <footer>
         <span>ユーザーフィードバックが増えるほど、事後ラー度の精度が高まります。データが少ない店舗はGoogle Mapsの評価などを参考に暫定算出しています。</span>
