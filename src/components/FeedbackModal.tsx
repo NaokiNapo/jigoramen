@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { RankedRestaurant } from '../types'
 import { submitFeedback } from '../services/supabase'
+import { trackEvent } from '../utils/analytics'
 
 const labels = [
   ['pair', '二人で座りやすかった'],
@@ -23,6 +24,10 @@ export function FeedbackModal({ restaurant, onClose, onSubmitted }: {
       setSending(true)
       setMessage('')
       await submitFeedback({ googlePlaceId: restaurant.placeId, ...scores })
+      trackEvent('feedback_submit', {
+        place_id: restaurant.placeId, pair_score: scores.pair, conversation_score: scores.conversation,
+        comfort_score: scores.comfort, ease_score: scores.ease,
+      })
       await onSubmitted()
       setMessage('送信しました。事後ラー度を更新しました。')
       window.setTimeout(onClose, 900)

@@ -1,4 +1,5 @@
 import { areaPages, type AreaPageConfig } from './data/areaDirectory'
+import { trackEvent } from './utils/analytics'
 
 type AreaPageProps = {
   area: AreaPageConfig
@@ -16,7 +17,9 @@ export default function AreaPage({ area }: AreaPageProps) {
         <span className="eyebrow">AREA GUIDE</span>
         <h1>{area.name}で<em>今営業中</em>のラーメン店を探す</h1>
         <p>{area.lead}</p>
-        <a className="button button--primary area-cta" href={`/?area=${encodeURIComponent(area.slug)}`}>
+        <a className="button button--primary area-cta" href={`/?area=${encodeURIComponent(area.slug)}`} onClick={() => trackEvent('area_cta_click', {
+          area_name: area.name, area_slug: area.slug, prefecture_name: area.prefectureName, region_name: area.regionName,
+        })}>
           {area.name}でおすすめを検索
         </a>
       </header>

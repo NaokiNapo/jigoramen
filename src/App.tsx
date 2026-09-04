@@ -8,6 +8,7 @@ import { applyMood, evaluateRestaurant } from './scoring/scoring'
 import { RestaurantCard } from './components/RestaurantCard'
 import { FeedbackModal } from './components/FeedbackModal'
 import { MapPanel } from './components/MapPanel'
+import { trackEvent } from './utils/analytics'
 
 const ramenLabels: { value: RamenType; label: string }[] = [
   { value: 'ramen', label: 'すべて' }, { value: 'iekei', label: '家系' }, { value: 'tonkotsu', label: '豚骨' },
@@ -209,10 +210,13 @@ export default function App() {
       setError('SupabaseのURL / Publishable Keyが未設定です。Ver.6.1のユーザー評価DBに必要です。')
       return
     }
+    const searchParams = { origin_type: origin.kind, ramen_type: ramenType, radius_km: radiusKm, open_now: openNow, mood }
     try {
       setLoading(true); setError('')
+      trackEvent('search', { ...searchParams, area_name: selectedAreaName ?? undefined })
       const candidates = await searchRamen({ origin: origin.location, ramenType, radiusMeters: radiusKm * 1000, openNow })
       if (candidates.length === 0) {
+        trackEvent('search_result', { ...searchParams, result_count: 0 })
         setRestaurants([])
         setError('Google Placesで条件に合う店舗が見つかりませんでした。検索範囲や「営業中のみ」を見直してください。')
         return
@@ -220,6 +224,7 @@ export default function App() {
       const stats = await fetchFeedbackStats(candidates.map((item) => item.placeId))
       setRestaurants(rankCandidates(candidates, stats))
       setView('list')
+      trackEvent('search_result', { ...searchParams, result_count: candidates.length })
     } catch (e) { setError(e instanceof Error ? e.message : '検索に失敗しました。') }
     finally { setLoading(false) }
   }
@@ -227,6 +232,18 @@ export default function App() {
   function updateMood(nextMood: Mood) {
     setMood(nextMood)
     setRestaurants((current) => current.map((r) => ({ ...r, evaluation: applyMood(r.evaluation, nextMood) })))
+  }
+
+  function changeView(nextView: 'list' | 'map') {
+    if (nextView === view) return
+    setView(nextView)
+    trackEvent('view_change', { view: nextView, result_count: sortedRestaurants.length })
+  }
+
+  function changeSort(nextSort: SortMode) {
+    if (nextSort === sortMode) return
+    setSortMode(nextSort)
+    trackEvent('sort_change', { sort_mode: nextSort, result_count: sortedRestaurants.length })
   }
 
   async function refreshScoresAfterFeedback() {
@@ -304,13 +321,13 @@ export default function App() {
               <div className="results-actions">
                 <label className="sort-control">
                   <span>並び替え</span>
-                  <select value={sortMode} onChange={(e) => setSortMode(e.target.value as SortMode)} aria-label="一覧の並び替え">
+                  <select value={sortMode} onChange={(e) => changeSort(e.target.value as SortMode)} aria-label="一覧の並び替え">
                     <option value="jigo">事後ラー度（高い順）</option>
                     <option value="distance">距離（近い順）</option>
                     <option value="googleRating">Googleマップ評価（高い順）</option>
                   </select>
                 </label>
-                <div className="view-toggle"><button className={view === 'list' ? 'active' : ''} onClick={() => setView('list')}>一覧</button><button className={view === 'map' ? 'active' : ''} onClick={() => setView('map')}>地図</button></div>
+                <div className="view-toggle"><button className={view === 'list' ? 'active' : ''} onClick={() => changeView('list')}>一覧</button><button className={view === 'map' ? 'active' : ''} onClick={() => changeView('map')}>地図</button></div>
               </div>
             </div>
             {view === 'list' ? <div className="restaurant-list">{sortedRestaurants.map((restaurant) => <RestaurantCard key={restaurant.placeId} restaurant={restaurant} moodActive={mood !== 'none'} onFeedback={setFeedbackTarget} />)}</div> : <MapPanel origin={origin} restaurants={sortedRestaurants} moodActive={mood !== 'none'} radiusMeters={radiusKm * 1000} />}

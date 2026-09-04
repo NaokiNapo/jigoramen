@@ -3,6 +3,7 @@ import { confidenceLabel } from '../scoring/scoring'
 import { formatDistance } from '../utils/distance'
 import { googleMapsDetailsUrl } from '../services/googleMaps'
 import { ScoreBadge } from './ScoreBadge'
+import { trackEvent } from '../utils/analytics'
 
 function axisLabel(score: number) {
   if (score >= 94) return '◎'
@@ -48,7 +49,10 @@ export function RestaurantCard({ restaurant, moodActive, onFeedback }: {
       </div>
 
       <div className="card-actions">
-        <a className="button button--primary" href={googleMapsDetailsUrl(restaurant.placeId, restaurant.name)} target="_blank" rel="noreferrer">Googleマップで詳細</a>
+        <a className="button button--primary" href={googleMapsDetailsUrl(restaurant.placeId, restaurant.name)} target="_blank" rel="noreferrer" onClick={() => trackEvent('shop_click', {
+          place_id: restaurant.placeId, shop_name: restaurant.name, jigo_score: evaluation.baseScore,
+          distance_meters: restaurant.distanceMeters, google_rating: restaurant.googleRating, sample_count: evaluation.sampleCount,
+        })}>Googleマップで詳細</a>
         <button className="button button--ghost" type="button" onClick={() => onFeedback(restaurant)}>事後ラー評価をする</button>
       </div>
     </article>
