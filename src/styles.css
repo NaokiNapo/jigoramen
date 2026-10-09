@@ -410,3 +410,16 @@ footer span:first-child { max-width: 610px; }
   .directory-flow { grid-template-columns: 1fr; }
   .directory-areas .area-link-grid { grid-template-columns: 1fr; }
 }
+
+/* Home guide (static explanatory content below the search tool) */
+.home-guide { margin-top: 28px; }
+.home-guide__panel .eyebrow { display: block; margin-bottom: 6px; }
+.home-guide__panel h2 { font-size: 18px; }
+.home-guide__steps { margin: 10px 0 0; padding-left: 1.4em; }
+.home-guide__steps li + li { margin-top: 14px; }
+.home-guide__steps strong { display: block; color: #f6f3f7; font-size: 14px; }
+.home-guide__steps p { margin-top: 4px; }
+.home-guide__faq { margin: 10px 0 16px; }
+.home-guide__faq div + div { margin-top: 16px; }
+.home-guide__faq dt { color: #f6f3f7; font-size: 14px; font-weight: 700; line-height: 1.7; }
+.home-guide__faq dd { margin: 4px 0 0; color: #cbc7cf; font-size: 14px; line-height: 1.95; }

@@ -12,6 +12,7 @@ import {
   prefecturePagesByPath,
   type PageMetadata,
 } from './data/areaDirectory'
+import { isStaticPagePath, staticPageMetadata } from './data/staticPages'
 import PrivacyPage from './PrivacyPage'
 import TermsPage from './TermsPage'
 import './styles.css'
@@ -36,10 +37,6 @@ const page = areaPage
         ? <AboutPage />
         : <App />
 
-if (pathname === '/privacy') document.title = 'プライバシーポリシー | 事後ラー'
-if (pathname === '/terms') document.title = '利用規約 | 事後ラー'
-if (pathname === '/contact') document.title = 'お問い合わせ | 事後ラー'
-if (pathname === '/about') document.title = '運営者情報 | 事後ラー'
 
 function setMetaContent(selector: string, content: string) {
   document.querySelector<HTMLMetaElement>(selector)?.setAttribute('content', content)
@@ -59,6 +56,7 @@ function applyPageMetadata(metadata: PageMetadata) {
 if (areaPage) applyPageMetadata(areaPage)
 if (prefecturePage) applyPageMetadata(prefecturePage)
 if (pathname === '/area') applyPageMetadata(areaDirectoryMetadata)
+if (isStaticPagePath(pathname)) applyPageMetadata(staticPageMetadata[pathname])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
