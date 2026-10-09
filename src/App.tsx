@@ -9,6 +9,7 @@ import { RestaurantCard } from './components/RestaurantCard'
 import { FeedbackModal } from './components/FeedbackModal'
 import { MapPanel } from './components/MapPanel'
 import { trackEvent } from './utils/analytics'
+import HomeGuide from './HomeGuide'
 
 const ramenLabels: { value: RamenType; label: string }[] = [
   { value: 'ramen', label: 'すべて' }, { value: 'iekei', label: '家系' }, { value: 'tonkotsu', label: '豚骨' },
@@ -333,6 +334,8 @@ export default function App() {
             {view === 'list' ? <div className="restaurant-list">{sortedRestaurants.map((restaurant) => <RestaurantCard key={restaurant.placeId} restaurant={restaurant} moodActive={mood !== 'none'} onFeedback={setFeedbackTarget} />)}</div> : <MapPanel origin={origin} restaurants={sortedRestaurants} moodActive={mood !== 'none'} radiusMeters={radiusKm * 1000} />}
           </section>
         )}
+
+        <HomeGuide />
       </main>
 
       <footer>
