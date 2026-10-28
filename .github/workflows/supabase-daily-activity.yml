@@ -1,0 +1,47 @@
+name: Supabase Daily Activity Check
+
+on:
+  schedule:
+    # Every day at 09:15 JST (00:15 UTC)
+    - cron: '15 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-daily-activity
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read from JigoRamen Supabase database
+        env:
+          SUPABASE_URL: https://tnlvcuyilhpyrldmbptz.supabase.co
+          # This is a public/publishable client key, NOT a service-role key.
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_E3dPEHACfgvBkxyBsYHaZQ_5IpW3t6F
+        run: |
+          set -euo pipefail
+          # Make actual database requests rather than just pinging the API host.
+          # RLS applies; no records are written or changed.
+          for attempt in 1 2 3; do
+            if curl --fail-with-body --silent --show-error \
+              --connect-timeout 10 --max-time 25 \
+              --retry 2 --retry-delay 3 \
+              --get "${SUPABASE_URL}/rest/v1/jigo_feedback_stats_v6" \
+              --data-urlencode 'select=*' \
+              --data-urlencode 'limit=1' \
+              -H "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
+              -H "Authorization: Bearer ${SUPABASE_PUBLISHABLE_KEY}" \
+              -H 'Accept: application/json' \
+              --output /dev/null; then
+              echo "Database request ${attempt}/3 succeeded."
+            else
+              echo "::error::Supabase database request ${attempt}/3 failed."
+              exit 1
+            fi
+          done
+          echo "Completed three read-only Supabase database requests."
