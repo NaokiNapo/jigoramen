@@ -35,7 +35,6 @@ jobs:
               --data-urlencode 'select=*' \
               --data-urlencode 'limit=1' \
               -H "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
-              -H "Authorization: Bearer ${SUPABASE_PUBLISHABLE_KEY}" \
               -H 'Accept: application/json' \
               --output /dev/null; then
               echo "Database request ${attempt}/3 succeeded."
